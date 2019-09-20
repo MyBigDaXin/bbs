@@ -1,0 +1,55 @@
+@startuml
+
+abstract class AbstractList
+abstract AbstractCollection
+interface EventHandler{
+    doHandler(EventModel model)
+
+    List<EventType> getSupportEventTypes()
+
+}
+
+class EventModel{
+  int entityId
+  int entityType
+  int ownerId
+  int actoyId
+  EventType type
+  Map<String,Object> ext
+}
+
+class EventProducer{
+ JedsiAdapter jedisAdapter
+ fireEvent(EventModel model)
+}
+
+class EventConsumer{
+
+Map<EventType,List<EventHandler>> config
+
+
+
+}
+
+EventConsumer--|> InitializingBean
+interface InitializingBean
+
+List <|-- AbstractList
+Collection <|-- AbstractCollection
+
+Collection <|- List
+AbstractCollection <|- AbstractList
+AbstractList <|-- ArrayList
+
+class ArrayList {
+Object[] elementData
+size()
+}
+
+enum EventType {
+LIEK
+COMMENT
+QUESTION
+}
+
+@enduml
